@@ -1,4 +1,4 @@
 FROM centos:7
-CMD yum group install "Development Tools"
-CMD yum install vim
-CMD yum install wget
+RUN yum group install "Development Tools"
+RUN yum install vim
+RUN yum install wget
