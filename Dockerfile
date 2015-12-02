@@ -1,7 +1,7 @@
 FROM centos:7
-CMD yum group install "Development Tools" \
-	&& yum install vim \
-	&& yum install wget
+RUN yum group install "Development Tools" -y \
+	&& yum install vim -y\
+	&& yum install wget -y
 RUN mkdir ~/library/bin -p \
 	&& mkdir ~/library/include -p \
 	&& mkdir ~/library/lib -p \
