@@ -14,7 +14,8 @@ RUN yum group install "Development Tools" -y \
 	&& yum -y install zlib \
 	&& yum -y install zlib-devel
 
-RUN cd ~/repos \
+RUN mkdir ~/repos \
+	&& cd ~/repos \
 	&& wget http://www.iplantcollaborative.org/sites/default/files/irods/icommands.x86_64.tar.bz2 \
 	&& tar xfvj icommands.x86_64.tar.bz2
 
@@ -27,8 +28,7 @@ ENV PATH /root/repos/icommands:$PATH
 ENV LD_LIBRARY_PATH /root/library/lib:$LD_LIBRARY_PATH
 ENV INCLUDE /root/library/lib:$INCLUDE
 
-RUN mkdir ~/repos \
-	&& cd ~/repos \
+RUN cd ~/repos \
 	&& wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio_latest.tar.gz \
 	&& tar xfvz cfitsio_latest.tar.gz \
 	&& cd cfitsio \
