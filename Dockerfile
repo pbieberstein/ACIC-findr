@@ -14,8 +14,8 @@ RUN yum install gsl -y \
 	&& yum install boost -y \
 	&& yum install lapack -y \
 
-RUN mkdir ~/repos
-	&& cd ~/repos
+RUN mkdir ~/repos \
+	&& cd ~/repos \
 	&& wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio_latest.tar.gz \
 	&& tar xfvz cfitsio_latest.tar.gz \
 	&& cd cfitsio \
@@ -23,7 +23,7 @@ RUN mkdir ~/repos
 	&& make \
 	&& make install
 
-
+RUN cd ~/
 
 
 
