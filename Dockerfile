@@ -10,5 +10,10 @@ ENV PATH /root/library/bin:$PATH
 ENV LD_LIBRARY_PATH /root/library/lib:$LD_LIBRARY_PATH
 ENV INCLUDE /root/library/lib:$INCLUDE
 
+RUN yum install gsl -y \
+	&& yum install boost -y \
+	&& yum install lapack -y \
+	
+
 
 
