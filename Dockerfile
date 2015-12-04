@@ -23,7 +23,13 @@ RUN mkdir ~/repos \
 	&& make \
 	&& make install
 
-RUN cd ~/
+RUN cd ~/repos \
+	&& wget http://www.iausofa.org/2015_0209_C/sofa_c-20150209_a.tar.gz \
+	&& tar xfvz sofa_c-20150209_a.tar.gz \
+	&& cd sofa/20150209_a/c/src
+
+
+
 
 
 
