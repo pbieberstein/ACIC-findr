@@ -1,18 +1,31 @@
 FROM centos:7
 RUN yum group install "Development Tools" -y \
 	&& yum install vim -y\
-	&& yum install wget -y
+	&& yum install wget -y \
+	&& yum install gsl -y \
+	&& yum install boost -y \
+	&& yum install lapack -y \
+	&& yum install gsl-devel -y \
+	&& yum -y install python-devel \
+	&& yum -y install mlocate \
+	&& yum -y install boost-devel \
+	&& yum -y install fftw \
+	&& yum -y install fftw-devel \
+	&& yum -y install zlib \
+	&& yum -y install zlib-devel
+
+RUN cd ~/repos \
+	&& wget http://www.iplantcollaborative.org/sites/default/files/irods/icommands.x86_64.tar.bz2 \
+	&& tar xfvj icommands.x86_64.tar.bz2
+
 RUN mkdir ~/library/bin -p \
 	&& mkdir ~/library/include -p \
 	&& mkdir ~/library/lib -p
 
 ENV PATH /root/library/bin:$PATH
+ENV PATH /root/repos/icommands:$PATH
 ENV LD_LIBRARY_PATH /root/library/lib:$LD_LIBRARY_PATH
 ENV INCLUDE /root/library/lib:$INCLUDE
-
-RUN yum install gsl -y \
-	&& yum install boost -y \
-	&& yum install lapack -y
 
 RUN mkdir ~/repos \
 	&& cd ~/repos \
@@ -63,6 +76,43 @@ RUN cd ~/repos \
 RUN cd ~/repos \
 	&& git clone https://bitbucket.org/jaredmales/mxlib.git \
 	&& cd mxlib \
+	&& sed -i 's#INSTALL_PATH = $(HOME)#INSTALL_PATH = $(HOME)/library#' Makefile \
+	&& sed -i 's#BIN_PATH = $(HOME)/bin#BIN_PATH = $(HOME)/library/bin#' Makefile \
+	&& sed -i 's#INCLUDE = -Iinclude -I$(HOME)/include#INCLUDE = -Iinclude -I$(HOME)/library/include#' Makefile \
+	&& make \
+	&& make install
+
+RUN cd ~/repos \
+	&& git clone https://bitbucket.org/jaredmales/acic.git && cd acic \
+	&& sed -i 's#INCLUDE_PATH = $(HOME)/include#INCLUDE_PATH = $(HOME)/library/include#' makefile \
+	&& sed -i 's#LIB_PATH = $(HOME)/lib#LIB_PATH = $(HOME)/library/lib#' makefile \
+	&& sed -i 's?BOOST_PATH = /usr/local/lib?#BOOST_PATH = /usr/local/lib?' makefile \
+	&& sed -i 's#MXLIB_EXLIBS = -lsofa_c -L/usr/lib64/ -lcfitsio -lrt -L$(BOOST_PATH) -lboost_system -lboost_filesystem $(GSL_LIBS) $(BLAS_LIBS) $(FFTW_LIBS)#MXLIB_EXLIBS = -lsofa_c -L/usr/lib64/ -lcfitsio -lrt -lboost_system -lboost_filesystem $(GSL_LIBS) $(BLAS_LIBS) $(FFTW_LIBS)#' makefile \
+	&& ln -s /usr/lib64/libboost_system.so.1.53.0 /usr/lib64/libboost_system.so \
+	&& ln -s /usr/lib64/libboost_filesystem.so.1.53.0 /usr/lib64/libboost_filesystem.so \
+	&& ln -s /usr/lib64/libgsl.so.0.16.0 /usr/lib64/libgsl.so \
+	&& ln -s /usr/lib64/libfftw3.so.3.3.2 /usr/lib64/libfftw3.so \
+	&& ln -s /usr/lib64/libfftw3f.so.3.3.2 /usr/lib64/libfftw3f.so \
+	&& make
+
+RUN ln -s $HOME/repos/acic/darkmaster $HOME/library/bin/darkmaster \
+	&& ln -s $HOME/repos/acic/darksub $HOME/library/bin/darksub \
+	&& ln -s $HOME/repos/acic/fitscent $HOME/library/bin/fitscent \
+	&& ln -s $HOME/repos/acic/klipReduce $HOME/library/bin/klipReduce
+
+RUN cd ~/repos \
+	&& wget http://ccl.cse.nd.edu/software/files/cctools-5.3.0-source.tar.gz && tar xfvz cctools-5.3.0-source.tar.gz && cd cctools-5.3.0-source \
+	&& ./configure --prefix=$HOME/library \
+	&& make \
+	&& make install
+
+RUN cd ~/repos \
+	&& wget https://bootstrap.pypa.io/get-pip.py \
+	&& python get-pip.py \
+	&& pip install astropy
+
+RUN cd ~/repos \
+	&& git clone https://github.com/acic2015/findr.git
 
 
 
