@@ -13,7 +13,22 @@ ENV INCLUDE /root/library/lib:$INCLUDE
 RUN yum install gsl -y \
 	&& yum install boost -y \
 	&& yum install lapack -y \
-	
+
+RUN mkdir ~/repos
+	&& cd ~/repos
+	&& wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio_latest.tar.gz \
+	&& tar xfvz cfitsio_latest.tar.gz \
+	&& cd cfitsio \
+	&& ./configure --prefix=/root/library \
+	&& make \
+	&& make install
+
+
+
+
+
+
+
 
 
 
