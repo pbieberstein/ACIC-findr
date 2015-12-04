@@ -13,5 +13,5 @@ textToReplace = sys.argv[3]
 
 file_to_edit = fileinput.FileInput(fileToSearch, inplace=True, backup='.bak')
 for line in file_to_edit:
-    print line.replace(textToSearch, textToReplace).strip()
+    print line.replace(textToSearch, textToReplace).strip('\n')
 file_to_edit.close()
