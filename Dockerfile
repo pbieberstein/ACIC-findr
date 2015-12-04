@@ -4,7 +4,7 @@ RUN yum group install "Development Tools" -y \
 	&& yum install wget -y
 RUN mkdir ~/library/bin -p \
 	&& mkdir ~/library/include -p \
-	&& mkdir ~/library/lib -p \
+	&& mkdir ~/library/lib -p
 
 ENV PATH /root/library/bin:$PATH
 ENV LD_LIBRARY_PATH /root/library/lib:$LD_LIBRARY_PATH
@@ -12,7 +12,7 @@ ENV INCLUDE /root/library/lib:$INCLUDE
 
 RUN yum install gsl -y \
 	&& yum install boost -y \
-	&& yum install lapack -y \
+	&& yum install lapack -y
 
 RUN mkdir ~/repos \
 	&& cd ~/repos \
