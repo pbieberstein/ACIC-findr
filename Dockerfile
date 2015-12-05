@@ -83,7 +83,8 @@ RUN cd ~/repos \
 	&& make install
 
 RUN cd ~/repos \
-	&& git clone https://bitbucket.org/jaredmales/acic.git && cd acic \
+	&& git clone https://bitbucket.org/jaredmales/acic.git \
+	&& cd acic \
 	&& sed -i 's#INCLUDE_PATH = $(HOME)/include#INCLUDE_PATH = $(HOME)/library/include#' makefile \
 	&& sed -i 's#LIB_PATH = $(HOME)/lib#LIB_PATH = $(HOME)/library/lib#' makefile \
 	&& sed -i 's?BOOST_PATH = /usr/local/lib?#BOOST_PATH = /usr/local/lib?' makefile \
