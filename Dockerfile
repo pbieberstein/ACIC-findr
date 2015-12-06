@@ -89,11 +89,6 @@ RUN cd ~/repos \
 	&& sed -i 's#LIB_PATH = $(HOME)/lib#LIB_PATH = $(HOME)/library/lib#' makefile \
 	&& sed -i 's?BOOST_PATH = /usr/local/lib?#BOOST_PATH = /usr/local/lib?' makefile \
 	&& sed -i 's#MXLIB_EXLIBS = -lsofa_c -L/usr/lib64/ -lcfitsio -lrt -L$(BOOST_PATH) -lboost_system -lboost_filesystem $(GSL_LIBS) $(BLAS_LIBS) $(FFTW_LIBS)#MXLIB_EXLIBS = -lsofa_c -L/usr/lib64/ -lcfitsio -lrt -lboost_system -lboost_filesystem $(GSL_LIBS) $(BLAS_LIBS) $(FFTW_LIBS)#' makefile \
-	&& ln -s /usr/lib64/libboost_system.so.1.53.0 /usr/lib64/libboost_system.so \
-	&& ln -s /usr/lib64/libboost_filesystem.so.1.53.0 /usr/lib64/libboost_filesystem.so \
-	&& ln -s /usr/lib64/libgsl.so.0.16.0 /usr/lib64/libgsl.so \
-	&& ln -s /usr/lib64/libfftw3.so.3.3.2 /usr/lib64/libfftw3.so \
-	&& ln -s /usr/lib64/libfftw3f.so.3.3.2 /usr/lib64/libfftw3f.so \
 	&& make
 
 RUN ln -s $HOME/repos/acic/darkmaster $HOME/library/bin/darkmaster \
