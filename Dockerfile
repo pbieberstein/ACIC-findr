@@ -110,7 +110,10 @@ RUN cd ~/repos \
 RUN cd ~/repos \
 	&& git clone https://github.com/acic2015/findr.git
 
-
+RUN cd ~/repos \
+	&& rm *.tgz \
+	&& rm *.bz2 \
+	&& rm *.gz
 
 
 
