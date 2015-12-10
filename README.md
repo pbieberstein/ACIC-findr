@@ -43,7 +43,6 @@ $ sudo docker run -it pbieberstein/acic-findr:latest /bin/bash
 ### Todos
 
  - Include comments in Dockerfile
- - Add logo to documentation
 
 License
 ----
