@@ -34,7 +34,7 @@ $ sudo docker pull pbieberstein/acic-findr:latest
 #### Usage
 To start the image as an interactive shell script
 ```sh
-$ sudo docker run -it pbieberstein/acic-findr:latest /bin/bash
+$ sudo docker run -it pbieberstein/acic-findr:latest
 ```
 
 #### Authors
