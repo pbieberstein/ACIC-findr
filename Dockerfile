@@ -1,6 +1,7 @@
 FROM centos:7
 
 MAINTAINER Philipp von Bieberstein, Asher Baltzell
+
 ENTRYPOINT ["/bin/bash"]
 
 RUN yum group install "Development Tools" -y \
