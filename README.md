@@ -1,6 +1,8 @@
-# Findr-Dockerfile
+# Findr-Dockerfile 
 
 CentOS-7 Based Docker to run Findr (https://github.com/acic2015/findr), ACIC utilities (https://bitbucket.org/jaredmales/acic), and CCTools (http://ccl.cse.nd.edu/software/)
+
+
 
 #### Includes:
 - Python/Python Development/PIP 
@@ -32,18 +34,17 @@ $ sudo docker pull pbieberstein/acic-findr:latest
 #### Usage
 To start the image as an interactive shell script
 ```sh
-$ sudo docker run -it pbieberstein/acic-findr:latest /bin/bash
+$ sudo docker run -it pbieberstein/acic-findr:latest
 ```
 
 #### Authors
-- Philipp von Bieberstein
-- Asher Baltzell
+- [Philipp von Bieberstein]
+- [Asher Baltzell]
 
 
 ### Todos
 
  - Include comments in Dockerfile
- - Add logo to documentation
 
 License
 ----
@@ -53,4 +54,5 @@ MIT
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
 [Docker-Engine]: <http://docs.docker.com/engine/installation/>
-
+[Philipp von Bieberstein]: <https://github.com/pbieberstein>
+[Asher Baltzell]: <http://asherkhb.com/>
