@@ -42,16 +42,13 @@ RUN cd ~/repos \
 	&& make install
 
 RUN cd ~/repos \
-	&& wget https://raw.githubusercontent.com/pbieberstein/ACIC-findr/master/replace.py
-
-RUN cd ~/repos \
 	&& wget http://www.iausofa.org/2015_0209_C/sofa_c-20150209_a.tar.gz \
 	&& tar xfvz sofa_c-20150209_a.tar.gz \
 	&& cd sofa/20150209_a/c/src \
 	&& echo extraction done - now editing makefile \
-	&& python ~/repos/replace.py makefile "INSTALL_DIR = \$(HOME)" "INSTALL_DIR = \$(HOME)/library" \
-	&& python ~/repos/replace.py makefile "CFLAGF = -c -pedantic -Wall -W -O" "CFLAGF = -c -pedantic -Wall -W -O -fPIC" \
-	&& python ~/repos/replace.py makefile "CFLAGX = -pedantic -Wall -W -O" "CFLAGX = -pedantic -Wall -W -O -fPIC" \
+	&& sed -i 's#INSTALL_DIR = $(HOME)#INSTALL_DIR = $(HOME)/library#' makefile \
+	&& sed -i 's#CFLAGF = -c -pedantic -Wall -W -O#CFLAGF = -c -pedantic -Wall -W -O -fPIC#' makefile \
+	&& sed -i 's#CFLAGX = -pedantic -Wall -W -O#CFLAGX = -pedantic -Wall -W -O -fPIC#' \
 	&& make \
 	&& make test \
 	&& make install
@@ -71,7 +68,7 @@ RUN cd ~/repos \
 	&& mkdir LINUX \
 	&& cd LINUX \
 	&& ../configure -b 64 --with-netlib-lapack-tarfile=/root/repos/lapack-3.6.0.tgz -D c -DWALL -Fa alg -fPIC --shared \
-	&& python ~/repos/replace.py interfaces/lapack/C2F/src/Make.inc "F77FLAGS = -O2 -mavx -fPIC -m64 -fPIC" "F77FLAGS = -O2 -mavx -fPIC -m64 -fPIC -frecursive" \
+	&& sed -i 's#F77FLAGS = -O -mavx -fPIC -m64#F77FLAGS = -O -mavx -fPIC -m64 -frecursive#' interfaces/lapack/C2F/src/Make.inc \
 	&& make build \
 	&& make check \
 	&& make time \
