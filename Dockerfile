@@ -32,6 +32,7 @@ ENV PATH /root/library/bin:$PATH
 ENV PATH /root/repos/icommands:$PATH
 ENV LD_LIBRARY_PATH /root/library/lib:$LD_LIBRARY_PATH
 ENV INCLUDE /root/library/lib:$INCLUDE
+ENV PYTHONPATH /root/library/lib/python2.7/site-packages/
 
 RUN cd ~/repos \
 	&& wget ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio_latest.tar.gz \
